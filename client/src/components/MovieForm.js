@@ -2,17 +2,16 @@ import { useState } from "react";
 import styled from "styled-components";
 
 function MovieForm() {
-  const [formData, setFormData] = useState({
-    title: "",
-    year: new Date().getFullYear(),
-    length: "0",
-    director: "",
-    description: "",
-    poster_url: "",
-    category: "",
-    discount: false,
-    female_director: false,
-  });
+  const [errors, setErrors] = useState([]);
+  // rest of component code
+}
+.then((response) => {
+  if (response.ok) {
+    response.json().then((newMovie) => console.log(newMovie));
+  } else {
+    response.json().then((errorData) => setErrors(errorData.errors));
+  }
+})
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,9 +21,8 @@ function MovieForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((newMovie) => console.log(newMovie));
+    }).then((response) => console.log(response));
+     
   }
 
   function handleChange(e) {
